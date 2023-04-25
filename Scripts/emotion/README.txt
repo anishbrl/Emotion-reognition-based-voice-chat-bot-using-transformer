@@ -1,0 +1,2 @@
+This folder contains pretrained speech emotion recognition model- Emotion_Model.h5.
+Also, download text emotion recognition model- Random_Forest.sav from drive https://drive.google.com/file/d/1ms0bJTirOENU5vGPE9EqsD9BEqulCe3P/view?usp=sharing 
