@@ -1,0 +1,5 @@
+node_modules
+Scripts/myenv/
+newenv
+Scripts/model_checkpoints/
+Scripts/emotion/

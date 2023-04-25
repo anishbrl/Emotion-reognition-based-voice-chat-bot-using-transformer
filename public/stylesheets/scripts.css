@@ -1,0 +1,119 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+  }
+  body {
+    background-image: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    overflow-y: hidden;
+    min-height: 100vh;
+  }
+  .wrapper {
+    display: flex;
+    margin-top: 80px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 400px;
+    width: 80vmin;
+    padding: 60px 80px;
+    background-color: teal;
+    border-radius: 5px;
+    box-shadow: 20px 20px 40px rgba(97, 63, 0, 0.4);
+    animation: slideup;
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  
+  @keyframes slideup {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  span {
+    display: block;
+    text-align: center;
+    font-size: 100px;
+  }
+  .rotate {
+    animation: rotate;
+    animation-duration: 1.2s;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(720deg);
+    }
+  }
+  p {
+    min-height: 100px;
+    font-size: 16px;
+    color: white;
+    font-weight: 400;
+    text-align: center;
+    word-wrap: break-word;
+    line-height: 35px;
+    margin: 30px 0;
+    opacity: 0;
+  }
+  .fade {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+  button {
+    width: min(250px, 80%);
+    display: block;
+    background-color: rgb(148, 219, 219);
+    border: none;
+    padding: 5px;
+    font-size: 18px;
+    color: #171721;
+    font-weight: 600;
+    padding: 12px 25px;
+    margin: 0 auto;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .clicked {
+    animation: clicked;
+    animation-duration: 1.5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  
+  footer{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      width: 90%;
+  }
+  
+  @keyframes clicked {
+    0% {
+      width: min(250px, 80%);
+    }
+    50% {
+      width: max(60%, 300px);
+    }
+    100% {
+      width: min(250px, 80%);
+    }
+  }
+  
+      

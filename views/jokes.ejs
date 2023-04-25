@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel='stylesheet' href='/stylesheets/scripts.css' />
+    <link rel='stylesheet' href='/stylesheets/Style.css' />
+
+</head>
+<body>
+
+    <nav>
+        <label class="logo">EMOTE</label>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/chat">Chat</a></li>
+            <li><a href="/quote">Quote</a></li>
+            
+            
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="wrapper">
+        <span class="rotate">&#128514;</span>
+        <p id="joke"></p>
+        <footer>
+            <button id="btn">Get Random Joke</button>
+        </footer>
+    </div>
+
+    <script>
+        const jokeContainer = document.getElementById("joke");
+const btn = document.getElementById("btn");
+const url = "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single";
+const emoji = document.querySelector("span");
+
+canclick = true;
+
+let getJoke = () => {
+    if (canclick) {
+        canclick = false;
+setTimeout(() => {
+    jokeContainer.classList.remove("fade");
+    btn.classList.remove("clicked");
+    emoji.classList.remove("rotate");
+    fetch(url)
+    .then(data => data.json())
+    .then(item =>{
+        jokeContainer.textContent = `${item.joke}`;
+        jokeContainer.classList.add("fade");
+    });
+    canclick = true;
+}, 1000);
+}};
+btn.addEventListener("click",()=>{
+    btn.classList.add("clicked");
+    emoji.classList.add("rotate");
+    getJoke();
+});
+getJoke();
+    </script>
+</body>
+</html>

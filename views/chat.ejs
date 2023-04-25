@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapy Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/chat.css' />
+    <link rel='stylesheet' href='/stylesheets/home.css' />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav>
+    <label class="logo">EMOTE</label>
+    <ul>
+        <li><a href="/">Home</a></li>
+        
+        <li><a href="/about">About</a></li>
+    </ul>
+</nav>
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="container col-lg-12 col-md-12 col-xs-12">
+            <center>
+            <div class="row col-12" id="chatbox">
+                <div class="send" id="msg-cont">
+
+                </div>
+            
+                <div class="receive" id="rep-cont">
+
+                </div>
+                <!-- <center><h3>Chat with CareBot</h3>
+                    <p id="status">You have started the chat yet!<br/>
+                    Please start the conversation.</p>
+
+                </center> -->
+
+            </div>
+            
+            </center>
+            
+        </div>    
+
+    </div>
+ 
+</div>
+<center>
+    <div  id="loading" >EMOTE is Typing...</div>
+</center>
+
+
+        <div class=" mic col-4 text-center">
+
+            <i id="icon" class="fa fa-microphone fa-3x"></i>
+            <br/>
+            <span id="record" style="color: red; font-size: 15px;"></span>    
+            <h6>Speak here</h6>
+            <div class="example">For songs say, "Suggest me a song" or for a laugh say, "Tell me a joke."</div>
+        </div>
+
+
+        <script>
+           
+            function callFastAPI() {
+                $.ajax({
+                    url: "http://localhost:8000/clear",
+                    type: "GET",
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                callFastAPI();
+            });
+
+         
+
+            const button = document.querySelector('i');
+    
+            const options = {mimeType: 'audio/webm'};
+            const buffer = [];
+            var mediaRecorder = null;
+            // start the recording
+            const startRecording = function() {
+                mediaRecorder.start();
+                // button.classList.toggle('btn-info');
+                button.removeEventListener('click', startRecording);
+                button.addEventListener('click', stopRecording);
+                document.getElementById('record').innerHTML = "Recording";
+                document.getElementById('status').style.display="none";
+            }
+    
+            // stop the recording
+            const stopRecording = function() {
+                mediaRecorder.stop();
+                // button.textContent = 'fa-microphone';
+                // button.classList.toggle('btn-info');
+                button.removeEventListener('click', stopRecording);
+                button.addEventListener('click', startRecording);
+                document.getElementById('record').innerHTML = "";
+            }
+    
+            // init the audio system
+            const handleInit = function(stream) {
+                // start recording with a click of the button
+                button.addEventListener('click', startRecording);
+    
+                // the mediaRecord object that captures the stream
+                mediaRecorder = new MediaRecorder(stream, options);
+    
+                // catches stream of bytearray
+                mediaRecorder.addEventListener('dataavailable', function(e) {
+                    if (e.data.size > 0) buffer.push(e.data);
+                });
+    
+                // when stopped, create a file and allow playback
+                mediaRecorder.addEventListener('stop', function() {
+                    // create a file
+                    const file = new File(buffer, 'audio.webm', {
+                        type: 'audio/webm',
+                        lastModified: Date.now()
+                    });
+                    console.log(file);
+                    
+                    const formdata = new FormData();
+                    formdata.append('audio', file);
+                    console.log(formdata);
+                    
+                    function addMessage(recogtext) {
+                        $('#chatbox').append(
+                            $('<div/>')
+                            .attr("id","msg")
+                            .addClass("msg")
+                            .append(
+                                $('<div/>')
+                                .attr("id","msg-cont")
+                                .append(
+                                        $('<p/>')
+                                        .attr("id","recog-msg")
+                                        .addClass("msg")
+                                        // .text("   YOU :  " +recogtext)
+                                        .text(recogtext)
+                                )
+                                .append(
+                                    $('<div/>')
+                                    .attr("id", "div-img")
+                                    .append(
+                                        $('<img/>')
+                                        .attr("id", "img-recog")
+                                    )
+                                )
+                            )
+                        );
+                    }
+                    
+                    function addReply(textreply){
+        
+                        $('#chatbox').append(
+                            $('<div/>')
+                            .attr("id","msg")
+                            .addClass("msg")
+                            .append(
+                                $('<div/>')
+                                .attr("id","rep-cont")
+                                .append(
+                                    $('<img/>')
+                                    .attr("id", "img-reply-recog")
+                                )
+                                .append(
+                                    $('<div/>')
+                                    .attr("id","p-recog")
+                                )
+                                .append(
+                                    $('<p/>')
+                                    .attr("id","reply-msg")
+                                    .addClass("reply")
+                                    .text(textreply)
+                                )
+                            )
+                        );
+                    }
+
+                
+                    fetch("http://localhost:8000/audio", {
+                        method: "POST",
+                        body: formdata
+                    }).then(res => res.json()).then(data => {
+                        var recogtext = data.texts;
+                        // console.log(recogtext)
+                         addMessage(recogtext)
+                         document.getElementById("loading").style.display = "block";                       
+                        document.getElementById("icon").style.pointerEvents = "none";
+                        
+                         fetch('http://localhost:8000/reply',{
+                            method:"GET"
+                         }).then(res=>res.json()).then(data=>{
+                            var textreply= data.reply;
+
+                            addReply(textreply)
+                            document.getElementById("loading").style.display = "none";
+                            document.getElementById("icon").style.pointerEvents = "auto";
+                            // console.log(textreply)
+                            
+                         })
+                    });
+
+            buffer.length = 0; // empty the buffer for the next one
+                });          
+            };
+    
+            // init the stream from the audio device
+            navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+                .then(handleInit);
+    
+        </script>
+</body>
+</html>

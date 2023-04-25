@@ -1,0 +1,125 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+nav{
+    font-family: 'Roboto', sans-serif;
+    background-color: teal;
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+label.logo{
+    color: white;
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 75px;
+    font-weight: bold;
+}
+nav ul{
+    float: right;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+nav ul li{
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+}
+
+nav ul li a{
+    color: white;
+    font-size: 17px;
+    text-transform: uppercase;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-decoration: none;
+
+}
+a.active, a:hover{
+    background: rgb(139, 218, 218);
+    transition: .5s;
+}
+
+
+
+
+.color{
+    display: flex;
+    width: 100%;
+    position: relative;
+    margin-top: 50px;
+}
+.lorem-text{
+    margin-top: 60px;
+    width: 750px;
+    font-size: 20px;
+    margin-left: 40px;
+
+}
+#bot-image{
+    margin-top: 100px;
+    width: 300px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.team-members{
+    margin-left: 40px;
+    color: teal;
+    text-align: center;
+}
+#card-wrapper{
+    display: flex;
+    justify-content: center;
+    margin-top: -90px;
+
+}
+.individual-card{
+    width: 350px;
+    height: 500px;
+    text-align: center;
+    background-color: #f5f6fb;
+    border-top-left-radius: 45px;
+    border-bottom-left-radius: 45px;
+    border-bottom-right-radius: 45px;
+    margin:16px;
+    box-shadow: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    line-height: 1.8;
+    word-spacing: 2px;
+}
+.individual-card:hover{
+    transition: box-shadow 300ms;
+    box-shadow:1px 1px 10px lightgrey ;
+}
+.individual-card img{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    margin-top: 35px;
+}
+.individual-card p:first-of-type{
+    color: #8b8b99;
+    font-size: 15px;
+    line-height: 1.3;
+    margin-top: 0;
+    padding: 20px;
+    font-style: italic;
+}
+h4, .email{
+    color: teal;
+}
