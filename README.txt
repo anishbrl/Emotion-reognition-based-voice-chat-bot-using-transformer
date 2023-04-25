@@ -4,6 +4,7 @@ The NLP project is based on transformer model that generates replies based on em
  
 Scripts/ contains all pretrained models loaded and used in the project. 
 Web application is built using JS for frontend and Fast API for backend.
+Install requirements.txt and run on python version- 3.9.13
 
 - run-- npm start
 - run-- uvicorn API:app--reload
